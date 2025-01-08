@@ -1,6 +1,6 @@
 // Basic Math Operation Functions
 function sum(a, b) {
-    return a + b;
+    return Number(a) + Number(b);
 };
 function subtract(a, b) {
     return a - b;
@@ -9,17 +9,12 @@ function multipy(a, b) {
     return a * b;
 };
 function divide(a, b) {
-    a / b;
+    return a / b;
 };
 
-// Operator and Operands Variables
-let firstNumber;
-let operand;
-let secondNumber;
-
 // Operate Function
-function operate(firstNumber, operand, secondNumber) {
-    switch (operand) {
+function operate(firstNumber, operator, secondNumber) {
+    switch (operator) {
         case "+":
             return sum(firstNumber, secondNumber);
             break;
@@ -36,3 +31,13 @@ function operate(firstNumber, operand, secondNumber) {
             return "meow";
     }
 }
+
+
+// Operator and Operands Variables
+let firstNumber = 0;
+let operator;
+let secondNumber = 0;
+
+
+
+

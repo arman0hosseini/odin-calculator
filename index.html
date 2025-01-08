@@ -6,6 +6,55 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="index.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body></body>
+  <body>
+    <div class="header">
+      <h1>Calculator</h1>
+    </div>
+    <div class="main">
+      <div class="cal-body">
+        <div class="cal-display">
+          <div class="last-display"></div>
+          <div class="current-display"></div>
+        </div>
+        <div class="cal-keys">
+          <div class="key-row">
+            <button class="cal-key clear" value="clear">AC</button>
+            <button class="cal-key" value="sign">+/-</button>
+            <button class="cal-key" value="percent">%</button>
+            <button class="cal-key operator" value="/">/</button>
+          </div>
+          <div class="key-row">
+            <button class="cal-key number" value="7">7</button>
+            <button class="cal-key number" value="8">8</button>
+            <button class="cal-key number" value="9">9</button>
+            <button class="cal-key operator" value="*">*</button>
+          </div>
+          <div class="key-row">
+            <button class="cal-key number" value="4">4</button>
+            <button class="cal-key number" value="5">5</button>
+            <button class="cal-key number" value="6">6</button>
+            <button class="cal-key operator" value="-">-</button>
+          </div>
+          <div class="key-row">
+            <button class="cal-key number" value="1">1</button>
+            <button class="cal-key number" value="2">2</button>
+            <button class="cal-key number" value="3">3</button>
+            <button class="cal-key operator" value="+">+</button>
+          </div>
+          <div class="key-row">
+            <button class="zero-key number" value="0">0</button>
+            <button class="last-row-key point" value="point">.</button>
+            <button class="last-row-key equal" value="=">=</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
