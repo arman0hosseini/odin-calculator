@@ -35,10 +35,12 @@ function operate(firstNumber, operator, secondNumber) {
             return divide(firstNumber, secondNumber);
             break;
         default:
-            return "meow";
+            clear();
+            isOkay = false;
+            currentDisplay.textContent = "ERROR";
+            lastDispaly.textContent = "ERROR";
     }
 }
-
 
 //Clear Function
 function clear() {
@@ -47,7 +49,7 @@ function clear() {
     secondNumber = 0;
     isFinished = false;
     isOkay = true;
-    nextNumber = true;
+    nextDigit = true;
     currentDisplay.textContent = "0";
     lastDispaly.textContent = "";
 }
@@ -57,7 +59,7 @@ let operator;
 let secondNumber;
 let isFinished;
 let isOkay;
-let nextNumber;
+let nextDigit;
 //Nodes
 const currentDisplay = document.querySelector(".current-display");
 const lastDispaly = document.querySelector(".last-display");
@@ -73,11 +75,10 @@ keys.addEventListener("click",
         else if (target.classList.contains("number")) {
             if (isFinished || isOkay == false) {
                 clear();
-                currentDisplay.textContent = target.value;
             }
-            else if (nextNumber) {
+            else if (nextDigit) {
                 currentDisplay.textContent = target.value;
-                nextNumber = false;
+                nextDigit = false;
             }
             else if (currentDisplay.textContent == "0") {
                 currentDisplay.textContent = target.value;
@@ -95,7 +96,7 @@ keys.addEventListener("click",
             }
             else if (isFinished) {
                 isFinished = false;
-                nextNumber = true;
+                nextDigit = true;
                 operator = target.value;
                 firstNumber = Number(currentDisplay.textContent);
                 lastDispaly.textContent = `${firstNumber} ${operator}`;
