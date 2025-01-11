@@ -122,7 +122,6 @@ keys.addEventListener("click",
             else clear();
         }
 
-
         if (target.classList.contains("pos-neg")) {
             if (isOkay) {
                 let currentNumber = Number(currentDisplay.textContent);
