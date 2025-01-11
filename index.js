@@ -14,6 +14,7 @@ function divide(a, b) {
 
 // Operate Function
 function operate(firstNumber, operator, secondNumber) {
+
     switch (operator) {
         case "+":
             return sum(firstNumber, secondNumber);
@@ -25,111 +26,119 @@ function operate(firstNumber, operator, secondNumber) {
             return multipy(firstNumber, secondNumber);
             break;
         case "/":
-            if (secondNumber == 0) {
+            if (secondNumber == "0") {
                 clear();
-                isOkay = false;
-                currentDisplay.textContent = "ERROR";
-                lastDispaly.textContent = "ERROR";
-                return;
+                displayError();
+                return false;
             }
             return divide(firstNumber, secondNumber);
             break;
         default:
-            clear();
-            isOkay = false;
-            currentDisplay.textContent = "ERROR";
-            lastDispaly.textContent = "ERROR";
+            return "meow";
     }
 }
 
-//Clear Function
+// Display Error Function 
+function displayError() {
+    isOkay = false;
+    lastDisplay.textContent = "ERROR";
+    currentDisplay.textContent = "ERROR";
+}
+
+// Clear Function
 function clear() {
     firstNumber = 0;
-    operator = undefined;
     secondNumber = 0;
-    isFinished = false;
+    mainOperator = null;
     isOkay = true;
-    nextDigit = true;
+    nextDigit = false;
+    lastDisplay.textContent = "";
     currentDisplay.textContent = "0";
-    lastDispaly.textContent = "";
 }
-// Operator and Operands Variables
+
+// Variables
 let firstNumber;
-let operator;
 let secondNumber;
-let isFinished;
+let mainOperator;
 let isOkay;
 let nextDigit;
-//Nodes
-const currentDisplay = document.querySelector(".current-display");
-const lastDispaly = document.querySelector(".last-display");
+
+// Nodes
 const keys = document.querySelector(".cal-keys");
+const lastDisplay = document.querySelector(".last-display");
+const currentDisplay = document.querySelector(".current-display");
+
 
 
 keys.addEventListener("click",
     function (event) {
         let target = event.target;
+
         if (target.classList.contains("clear")) clear();
 
-        //Number Buttons
-        else if (target.classList.contains("number")) {
-            if (isFinished || isOkay == false) {
-                clear();
-            }
-            else if (nextDigit) {
-                currentDisplay.textContent = target.value;
-                nextDigit = false;
-            }
-            else if (currentDisplay.textContent == "0") {
-                currentDisplay.textContent = target.value;
-            }
-            else {
-                currentDisplay.textContent += target.value;
-            }
-        }
-
-
-        //Operator Buttons
-        else if (target.classList.contains("operator")) {
-            if (isOkay == false) {
-                clear();
-            }
-            else if (isFinished) {
-                isFinished = false;
-                nextDigit = true;
-                operator = target.value;
-                firstNumber = Number(currentDisplay.textContent);
-                lastDispaly.textContent = `${firstNumber} ${operator}`;
-            }
-            else if (operator == undefined) {
-                operator = target.value;
-                firstNumber = Number(currentDisplay.textContent);
-                currentDisplay.textContent = "0"
-                lastDispaly.textContent = `${firstNumber} ${operator}`;
-            }
-        }
-
-
-        //Equal Button
-        else if (target.classList.contains("equal")) {
-            if (isFinished == false && isOkay == true) {
-                secondNumber = Number(currentDisplay.textContent);
-                lastDispaly.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
-                let result = operate(firstNumber, operator, secondNumber);
-                if (isOkay == false) {
-                    isFinished = true
-                    return;
+        if (target.classList.contains("number")) {
+            if (isOkay) {
+                if (!nextDigit || currentDisplay.textContent == "0") {
+                    currentDisplay.textContent = target.value;
+                    nextDigit = true;
                 }
-                currentDisplay.textContent = result;
-                secondNumber = result;
-                isFinished = true;
+                else currentDisplay.textContent += target.value;
             }
+            else clear();
         }
 
+        if (target.classList.contains("operator")) {
+            if (isOkay) {
+                if (!mainOperator) {
+                    firstNumber = Number(currentDisplay.textContent);
+                    mainOperator = target.value;
+                    currentDisplay.textContent = "0";
+                    lastDisplay.textContent = `${firstNumber} ${mainOperator}`;
+                    nextDigit = false;
+                }
+                else {
+                    secondNumber = Number(currentDisplay.textContent);
+                    lastDisplay.textContent = `${firstNumber} ${mainOperator} ${secondNumber} =`;
+                    let result = operate(firstNumber, mainOperator, secondNumber);
+                    if (!isOkay) {
+                        return;
+                    }
+                    mainOperator = target.value;
+                    currentDisplay.textContent = result;
+                    firstNumber = result;
+                    nextDigit = false;
+                }
 
+            }
+            else clear();
+        }
 
+        if (target.classList.contains("equal")) {
+            if (isOkay) {
+                if (mainOperator) {
+                    secondNumber = Number(currentDisplay.textContent);
+                    lastDisplay.textContent = `${firstNumber} ${mainOperator} ${secondNumber} =`;
+                    let result = operate(firstNumber, mainOperator, secondNumber);
+                    if (!isOkay) {
+                        return;
+                    }
+                    mainOperator = null;
+                    currentDisplay.textContent = result;
+                    firstNumber = result;
+                    nextDigit = false;
+                }
+            }
+            else clear();
+        }
     }
 )
+
+
+
+
+
+
+
 
 
 
