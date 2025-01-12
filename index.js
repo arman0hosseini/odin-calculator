@@ -38,8 +38,6 @@ function operate(firstNumber, operator, secondNumber) {
     }
 }
 
-
-
 // Display Error Function 
 function displayError() {
     isOkay = false;
